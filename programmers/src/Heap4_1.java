@@ -42,6 +42,7 @@ class Solution4_1 {
             answerList.add(first_idx);
             if (second_idx != -1) answerList.add(second_idx);
         }
+
         int[] answer = new int[answerList.size()];
         for (int i = 0 ; i < answerList.size(); i++) {
             answer[i] = answerList.get(i);
