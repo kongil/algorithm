@@ -22,9 +22,10 @@ class Song implements Comparable<Song> {
         return o.play - this.play;
     }
 }
-class Solution4 {
+class Solution4_2 {
     public int[] solution(String[] genres, int[] plays) {
         HashMap<String, Integer> map = new HashMap<>();
+
         for (int i = 0; i < genres.length; i++) {
             String genre = genres[i];
             int play = plays[i];
@@ -69,7 +70,7 @@ class Solution4 {
 
 public class Heap4_2 {
     public static void main(String[] args) {
-        Solution4 solution = new Solution4();
+        Solution4_2 solution = new Solution4_2();
         String[] genres = {"classic", "pop", "classic", "classic", "pop"};
         int[] plays = {500, 600, 150, 800, 2500};
 
