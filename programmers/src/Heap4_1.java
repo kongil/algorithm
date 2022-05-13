@@ -54,6 +54,7 @@ class Solution4_1 {
 public class Heap4_1 {
     public static void main(String[] args) {
         Solution4_1 solution = new Solution4_1();
+
         String[] genres = {"classic", "pop", "classic", "classic", "pop"};
         int[] plays = {500, 600, 150, 800, 2500};
 
