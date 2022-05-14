@@ -56,6 +56,5 @@ public class PriorityQueue1 {
         for (int an : ans) {
             System.out.println("an = " + an);
         }
-
     }
 }
