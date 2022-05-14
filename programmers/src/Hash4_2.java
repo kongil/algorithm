@@ -68,7 +68,7 @@ class Solution4_2 {
     }
 }
 
-public class Heap4_2 {
+public class Hash4_2 {
     public static void main(String[] args) {
         Solution4_2 solution = new Solution4_2();
 

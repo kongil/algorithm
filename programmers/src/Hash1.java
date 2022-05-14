@@ -28,7 +28,7 @@ class Solution {
     }
 }
 
-public class Heap1 {
+public class Hash1 {
     public static void main(String[] args) {
         Solution solution = new Solution();
 

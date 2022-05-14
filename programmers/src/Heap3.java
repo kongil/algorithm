@@ -1,30 +1,45 @@
 import java.util.*;
 
-class Solution3 {
-    public int solution(String[][] clothes) {
-        int answer = 1;
-        HashMap<String, HashSet<String>> map = new HashMap<>();
-        for (String[] cloth : clothes) {
-            String key = cloth[1];
-            String value = cloth[0];
-            if (map.containsKey(key)) {
-                HashSet<String> set = map.get(key);
-                set.add(value);
+class Solution8 {
+    public int[] solution(String[] operations) {
+        PriorityQueue<Integer> pqMax = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> pqMin = new PriorityQueue<>();
+
+        for (String operation : operations) {
+            String[] opArr = operation.split(" ");
+            String op = opArr[0];
+            int num = Integer.parseInt(opArr[1]);
+            if (op.equals("I")) {
+                pqMax.add(num);
+                pqMin.add(num);
             }
             else {
-                HashSet<String> set = new HashSet<>();
-                set.add(value);
-                map.put(key,set);
+                if (num == 1) {
+                    if (!pqMax.isEmpty()) {
+                        int front = pqMax.poll();
+                        pqMin.remove(front);
+                    }
+                }
+                else if (num == -1) {
+                    if (!pqMin.isEmpty()) {
+                        int front = pqMin.poll();
+                        pqMax.remove(front);
+                    }
+                }
             }
         }
-        
-        Set<String> keys = map.keySet();
-        for (String key : keys) {
-            int size = map.get(key).size()+1;
-            answer *= size;
-        }
 
-        answer -= 1;
+        ArrayList<Integer> list = new ArrayList<>();
+        if (!pqMax.isEmpty()) list.add(pqMax.poll());
+        else list.add(0);
+
+        if (!pqMin.isEmpty()) list.add(pqMin.poll());
+        else list.add(0);
+
+        int[] answer = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            answer[i] = list.get(i);
+        }
 
         return answer;
     }
@@ -32,9 +47,14 @@ class Solution3 {
 
 public class Heap3 {
     public static void main(String[] args) {
-        Solution3 solution = new Solution3();
-        String[][] s = {{"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"}};
+        Solution8 solution = new Solution8();
 
-        System.out.println(solution.solution(s));
+        String[] operations = {"I -45", "I 653", "D 1", "I -642", "I 45", "I 97", "D 1", "D -1", "I 333"};
+
+        int[] ans = solution.solution(operations);
+
+        for (int an : ans) {
+            System.out.println("an = " + an);
+        }
     }
 }

@@ -18,7 +18,7 @@ class Solution2 {
     }
 }
 
-public class Heap2 {
+public class Hash2 {
     public static void main(String[] args) {
         Solution2 solution = new Solution2();
         String[] s = {"119", "97674223", "1195524421"};
