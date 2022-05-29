@@ -1,5 +1,17 @@
 import java.util.*;
 
+/**
+ * 테스트 1 〉	통과 (0.03ms, 66.2MB)
+ * 테스트 2 〉	통과 (0.06ms, 78MB)
+ * 테스트 3 〉	통과 (0.09ms, 78MB)
+ * 테스트 4 〉	통과 (0.48ms, 73.8MB)
+ * 테스트 5 〉	통과 (1.44ms, 77.9MB)
+ * 테스트 6 〉	통과 (3.28ms, 81.9MB)
+ * 테스트 7 〉	통과 (7.04ms, 76.1MB)
+ * 테스트 8 〉	통과 (12.90ms, 75.5MB)
+ * 테스트 9 〉	통과 (16.64ms, 87.9MB)
+ * 테스트 10 〉	통과 (13.48ms, 80.2MB)
+ */
 class Solution11 {
     public int solution(int n, int[][] results) {
         int answer = 0;
