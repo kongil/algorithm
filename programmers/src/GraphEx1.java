@@ -1,22 +1,15 @@
 import java.util.*;
-class Node {
-    int no;
-    int distance;
-
-    public Node(int no, int distance) {
-        this.no = no;
-        this.distance = distance;
-    }
-
-    public int getNo() {
-        return no;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
-}
-
+/**
+ * 테스트 1 〉	통과 (0.39ms, 79MB)
+ * 테스트 2 〉	통과 (0.37ms, 73.4MB)
+ * 테스트 3 〉	통과 (0.45ms, 77.7MB)
+ * 테스트 4 〉	통과 (0.99ms, 74.8MB)
+ * 테스트 5 〉	통과 (3.34ms, 77.1MB)
+ * 테스트 6 〉	통과 (4.15ms, 93.3MB)
+ * 테스트 7 〉	통과 (20.56ms, 106MB)
+ * 테스트 8 〉	통과 (39.26ms, 99.9MB)
+ * 테스트 9 〉	통과 (36.20ms, 114MB)
+ */
 class Solution10 {
     public int INF_MAX = (int) 1e9;
     ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
@@ -61,6 +54,24 @@ class Solution10 {
             }
         }
         return cnt;
+    }
+}
+
+class Node {
+    int no;
+    int distance;
+
+    public Node(int no, int distance) {
+        this.no = no;
+        this.distance = distance;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public int getDistance() {
+        return distance;
     }
 }
 
