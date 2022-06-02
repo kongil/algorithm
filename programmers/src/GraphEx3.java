@@ -37,7 +37,7 @@ public class GraphEx3 {
             int[] dy = {1, 1, 0, -1, -1, -1, 0, 1};
             // 점과 그점이 속한 선
             HashMap<Point, ArrayList<Point>> visited = new HashMap<>();
-            visited.put(now, makeEdgeList(now));
+            //visited.put(now, makeEdgeList(now));
 
             for (int dir : arrows) {
                 Point next = new Point(now.getX() + dx[dir], now.getY() + dy[dir]);
@@ -50,7 +50,7 @@ public class GraphEx3 {
                 }
                 //처음 방문
                 else if (!visited.containsKey(next)){
-                    visited.put(next, makeEdgeList(next));
+                    visited.put(next, makeEdgeList(now));
 
                     if (visited.get(now) == null) {
                         visited.put(now, makeEdgeList(next));
