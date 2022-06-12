@@ -72,6 +72,7 @@ public class Ex문자열압축 {
             return compressedString.toString();
         }
     }
+
     public static void main(String[] args) {
 
         Solution solution = new Solution();
