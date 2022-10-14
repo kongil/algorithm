@@ -23,7 +23,5 @@ public class BruteForce_최소직사각형 {
     public static void main(String[] args) {
         Solution solution = new Solution();
         String s = "()()";
-        boolean isRight = solution.solution(s);
-        System.out.println("isRight = " + isRight);
     }
 }
