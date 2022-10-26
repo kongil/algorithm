@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/programmers/Heap.iml" filepath="$PROJECT_DIR$/programmers/Heap.iml" />
       <module fileurl="file://$PROJECT_DIR$/programmers/Heap2.iml" filepath="$PROJECT_DIR$/programmers/Heap2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/String.iml" filepath="$PROJECT_DIR$/String/String.iml" />
       <module fileurl="file://$PROJECT_DIR$/algorithm.iml" filepath="$PROJECT_DIR$/algorithm.iml" />
       <module fileurl="file://$PROJECT_DIR$/baekjoon/baekjoon.iml" filepath="$PROJECT_DIR$/baekjoon/baekjoon.iml" />
       <module fileurl="file://$PROJECT_DIR$/kakao/kakao.iml" filepath="$PROJECT_DIR$/kakao/kakao.iml" />
