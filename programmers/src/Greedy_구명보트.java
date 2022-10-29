@@ -4,18 +4,15 @@ public class Greedy_구명보트 {
     static class Solution {
         public int solution(int[] people, int limit) {
             int answer = 0;
-            boolean[] visited = new boolean[people.length];
-            Integer[] peoples = Arrays.stream(people).boxed().toArray(Integer[]::new);
-            Arrays.sort(peoples, Collections.reverseOrder());
+            int l = 0, r = people.length - 1;
 
-            int r = people.length - 1;
-            for (int l = 0; l < peoples.length; l++) {
-                if (visited[l]) break;
+            Arrays.sort(people);
 
-                if (peoples[l] + peoples[r] <= limit) {
-                    visited[r] = true;
-                    r--;
+            while (l <= r) {
+                if (people[l] + people[r] <= limit) {
+                    l++;
                 }
+                r--;
                 answer++;
             }
 
