@@ -54,8 +54,9 @@ public class Ex9_2 {
 
             if (sd[idx] < dist) continue;
 
-            for (int i = 0; i < graph.get(idx).size(); i++) {
-                Node next = graph.get(idx).get(i);
+            //for (int i = 0; i < graph.get(idx).size(); i++) {
+            for (Node next : graph.get(idx)) {
+                //Node next = graph.get(idx).get(i);
                 int cost = sd[idx] + next.getDistance();
 
                 if (cost < sd[next.getIndex()]) {
@@ -95,3 +96,18 @@ public class Ex9_2 {
 
     }
 }
+/**
+6 11
+1
+1 2 2
+1 3 5
+1 4 1
+2 3 3
+2 4 2
+3 2 3
+3 6 5
+4 3 3
+4 5 1
+5 3 1
+5 6 2
+ */
