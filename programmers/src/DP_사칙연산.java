@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class DP_사칙연산 {
     static class Solution {
@@ -8,28 +6,53 @@ public class DP_사칙연산 {
             int MIN = 0, MAX = 1;
             int answer = -1;
             int n = arr.length;
-            int[][] dp = new int[200][2];
+            int[][][] dp = new int[n][n][2];
 
-            dp[n-1][MIN] = Integer.valueOf(arr[n-1]);
-            dp[n-1][MAX] = Integer.valueOf(arr[n-1]);
-            for (int i = n-1; i >= 0; i--) {
-                if (arr[i].equals("-")) {
-                    dp[i-1][MIN] = Math.min(Integer.valueOf(arr[i-1]) - dp[i+1][MAX], Integer.valueOf(arr[i-1]) - Integer.valueOf(arr[i+1]) + dp[i+3][MIN]);
-                    dp[i-1][MAX] = Math.max(Integer.valueOf(arr[i-1]) - dp[i+1][MIN], Integer.valueOf(arr[i-1]) - Integer.valueOf(arr[i+1]) + dp[i+3][MAX]);
-                }
-                else if (arr[i].equals("+")) {
-                    dp[i-1][MIN] = dp[i+1][MIN] + Integer.parseInt(arr[i - 1]);
-                    dp[i-1][MAX] = dp[i+1][MAX] + Integer.parseInt(arr[i - 1]);
+            for (int i = 0; i < dp.length; i++) {
+                 for (int j = 0; j < dp[i].length; j++) {
+                     dp[i][j][MIN] = Integer.MAX_VALUE;
+                     dp[i][j][MAX] = -Integer.MAX_VALUE;
+                 }
+            }
+
+            for (int i = 0 ; i < n; i++) {
+                if (i % 2 == 0) {
+                    dp[i][i][MIN] = Integer.valueOf(arr[i]);
+                    dp[i][i][MAX] = Integer.valueOf(arr[i]);
+                    if (i+2 < n) {
+                        if (arr[i + 1].equals("+")) {
+                            dp[i][i + 2][MIN] = Integer.valueOf(arr[i]) + Integer.valueOf(arr[i + 2]);
+                            dp[i][i + 2][MAX] = Integer.valueOf(arr[i]) + Integer.valueOf(arr[i + 2]);
+                        }
+                        else {
+                            dp[i][i + 2][MIN] = Integer.valueOf(arr[i]) - Integer.valueOf(arr[i + 2]);
+                            dp[i][i + 2][MAX] = Integer.valueOf(arr[i]) - Integer.valueOf(arr[i + 2]);
+                        }
+                    }
                 }
             }
 
-            for (int i = 0; i < n; i++) {
-                System.out.println(dp[i][0] + " : " + dp[i][1]);
+            for (int cnt = 2; cnt < n; cnt+=2) {
+                for (int i = 0; i < n; i+=2) {
+                    int j = i + cnt;
+
+                    if (j >= n) continue;
+
+                    for (int k = i+1; k < j; k+=2) {
+                        if (arr[k].equals("+")) {
+                            dp[i][j][MIN] = Math.min(dp[i][k-1][MIN] + dp[k+1][j][MIN], dp[i][j][MIN]);
+                            dp[i][j][MAX] = Math.max(dp[i][k-1][MAX] + dp[k+1][j][MAX], dp[i][j][MAX]);
+                        }
+                        else if (arr[k].equals("-")) {
+                            dp[i][j][MIN] = Math.min(dp[i][k-1][MIN] - dp[k+1][j][MAX], dp[i][j][MIN]);
+                            dp[i][j][MAX] = Math.max(dp[i][k-1][MAX] - dp[k+1][j][MIN], dp[i][j][MAX]);
+                        }
+                    }
+
+                }
             }
 
-            answer = dp[0][1];
-
-            return answer;
+            return dp[0][n-1][MAX];
         }
     }
 
