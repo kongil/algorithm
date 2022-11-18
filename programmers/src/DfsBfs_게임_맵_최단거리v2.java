@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class DfsBfs_게임_맵_최단거리 {
+public class DfsBfs_게임_맵_최단거리v2 {
     static class Point {
         int x;
         int y;
