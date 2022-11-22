@@ -3,6 +3,7 @@ import java.util.*;
 public class DfsBfs_여행_경로 {
     static class Solution {
         boolean find = false;
+        List<String> ans = new LinkedList<>();
 
         public void dfs(String[][] tickets, boolean[] visited, int now, int cnt, List<String> listAnswer) {
             String start = tickets[now][0];
@@ -12,8 +13,13 @@ public class DfsBfs_여행_경로 {
                 System.out.println("answer = " + answer);
             }
             int n = tickets.length;
-            if (cnt == n || find) {
+            if (cnt == n-1 && !find) {
                 find = true;
+                ans.add(end);
+                for (String answer : listAnswer) {
+                    System.out.println("01answer = " + answer);
+                    ans.add(answer);
+                }
                 return;
             }
             for (int i = 0; i < n; i++) {
@@ -25,7 +31,8 @@ public class DfsBfs_여행_경로 {
                     dfs(tickets, visited, i, cnt + 1, listAnswer);
                 }
             }
-            listAnswer.remove(listAnswer.size()-1);
+            if (!find)
+                listAnswer.remove(listAnswer.size()-1);
         }
         public String[] solution(String[][] tickets) {
             Arrays.sort(tickets, new Comparator<String[]>() {
@@ -53,7 +60,9 @@ public class DfsBfs_여행_경로 {
                 dfs(tickets, visited, i, 1, dq);
             }
 
-            Object[] objArr = dq.toArray();
+            System.out.println(ans.size());
+            Object[] objArr = ans.toArray();
+            System.out.println(objArr.length);
             String[] strArr = Arrays.copyOf(objArr, objArr.length, String[].class);
 
             return strArr;
