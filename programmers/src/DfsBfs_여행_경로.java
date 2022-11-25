@@ -8,18 +8,14 @@ public class DfsBfs_여행_경로 {
         public void dfs(String[][] tickets, boolean[] visited, int now, int cnt, List<String> listAnswer) {
             String start = tickets[now][0];
             String end = tickets[now][1];
-            System.out.println(now + " : " + start + " : " + visited[now]);
-            for (String answer : listAnswer) {
-                System.out.println("answer = " + answer);
-            }
+//            System.out.println(cnt + " : " + now + " : " + start + " : " + visited[now]);
             int n = tickets.length;
-            if (cnt == n-1 && !find) {
+            if (cnt == n && !find) {
                 find = true;
-                ans.add(end);
                 for (String answer : listAnswer) {
-                    System.out.println("01answer = " + answer);
                     ans.add(answer);
                 }
+                ans.add(end);
                 return;
             }
             for (int i = 0; i < n; i++) {
@@ -29,6 +25,7 @@ public class DfsBfs_여행_경로 {
                     visited[i] = true;
                     listAnswer.add(nextStart);
                     dfs(tickets, visited, i, cnt + 1, listAnswer);
+                    visited[i] = false;
                 }
             }
             if (!find)
@@ -55,14 +52,15 @@ public class DfsBfs_여행_경로 {
 
             List<String> dq = new LinkedList<>();
             for (int i = 0; i < tickets.length; i++) {
-                visited[i] = true;
-                dq.add(tickets[i][0]);
-                dfs(tickets, visited, i, 1, dq);
+                if (tickets[i][0].equals("ICN")) {
+                    visited[i] = true;
+                    dq.add(tickets[i][0]);
+                    dfs(tickets, visited, i, 1, dq);
+                    visited[i] = false;
+                }
             }
 
-            System.out.println(ans.size());
             Object[] objArr = ans.toArray();
-            System.out.println(objArr.length);
             String[] strArr = Arrays.copyOf(objArr, objArr.length, String[].class);
 
             return strArr;
