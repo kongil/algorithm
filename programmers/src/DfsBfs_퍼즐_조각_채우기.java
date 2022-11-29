@@ -48,10 +48,11 @@ public class DfsBfs_퍼즐_조각_채우기 {
             }
             return puzzle;
         }
-        public int[][] makePuzzle(int[][] board, int x, int y) {
+        public List<Point> makePuzzle(int[][] board, int x, int y) {
             System.out.println("makePuzze : " + x + " " + y);
             int n = board.length;
             int[][] puzzle = new int[n][n];
+            List<Point> list = new LinkedList<>();
             Queue<Point> q = new LinkedList<>();
             puzzle[x][y] = 1;
             board[x][y] = 0;
@@ -59,6 +60,7 @@ public class DfsBfs_퍼즐_조각_채우기 {
 
             while (!q.isEmpty()) {
                 Point now = q.poll();
+                list.add(now);
                 for (int i = 0; i < 4; i++) {
                     int nX = now.x + dx[i];
                     int nY = now.y + dy[i];
@@ -72,35 +74,35 @@ public class DfsBfs_퍼즐_조각_채우기 {
                     }
                 }
             }
-            return puzzle;
+            return list;
         }
 
-        public void makePuzzleList(int[][] map, LinkedList<int[][]> list) {
+        public void makePuzzleList(int[][] map, LinkedList<LinkedList<Point>> list) {
             int n = map.length;
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     if (i == 0 && j == 0) {
                         if (map[i][j] == 1) {
-                            int[][] puzzle = makePuzzle(map, i, j);
-                            list.add(puzzle);
+                            List<Point> puzzle = makePuzzle(map, i, j);
+                            list.add((LinkedList<Point>) puzzle);
                         }
                     }
                     else if (i == 0) {
                         if (map[i][j-1] == 0 && map[i][j] == 1) {
-                            int[][] puzzle = makePuzzle(map, i, j);
-                            list.add(puzzle);
+                            List<Point> puzzle = makePuzzle(map, i, j);
+                            list.add((LinkedList<Point>) puzzle);
                         }
                     }
                     else if (j == 0) {
                         if (map[i - 1][j] == 0 && map[i][j] == 1) {
-                            int[][] puzzle = makePuzzle(map, i, j);
-                            list.add(puzzle);
+                            List<Point> puzzle = makePuzzle(map, i, j);
+                            list.add((LinkedList<Point>) puzzle);
                         }
                     }
                     else {
                         if (map[i - 1][j] == 0 && map[i][j-1] == 0 && map[i][j] == 1) {
-                            int[][] puzzle = makePuzzle(map, i, j);
-                            list.add(puzzle);
+                            List<Point> puzzle = makePuzzle(map, i, j);
+                            list.add((LinkedList<Point>) puzzle);
                         }
                     }
                 }
