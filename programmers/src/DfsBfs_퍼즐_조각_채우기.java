@@ -4,7 +4,8 @@ public class DfsBfs_퍼즐_조각_채우기 {
     static class Solution {
         int[] dx = {1, -1, 0, 0};
         int[] dy = {0, 0, -1, 1};
-        class Point {
+
+        class Point implements Comparable<Point> {
             int x;
             int y;
 
@@ -12,7 +13,18 @@ public class DfsBfs_퍼즐_조각_채우기 {
                 this.x = x;
                 this.y = y;
             }
+
+            @Override
+            public int compareTo(Point o) {
+                if (this.x == o.x) {
+                    return this.y - o.y;
+                }
+                else {
+                    return this.x - o.x;
+                }
+            }
         }
+
         public void reverse(int[][] board) {
             int n = board.length;
             for (int i = 0; i < n; i++) {
@@ -22,39 +34,12 @@ public class DfsBfs_퍼즐_조각_채우기 {
                  }
             }
         }
-        public int[][] makeEmptySpace(int[][] board, int x, int y) {
-            System.out.println("makeEmptySpace : " + x + " " + y);
-            int n = board.length;
-            int[][] puzzle = new int[n][n];
-            Queue<Point> q = new LinkedList<>();
-            puzzle[x][y] = 1;
-            board[x][y] = 1;
-            q.add(new Point(x, y));
 
-            while (!q.isEmpty()) {
-                Point now = q.poll();
-                for (int i = 0; i < 4; i++) {
-                    int nX = now.x + dx[i];
-                    int nY = now.y + dy[i];
-
-                    if (nX < 0 || nX >= n || nY < 0 || nY >= n) continue;
-
-                    if (puzzle[nX][nY] == 0 && board[nX][nY] == 0) {
-                        puzzle[nX][nY] = 1;
-                        board[nX][nY] = 1;
-                        q.add(new Point(nX, nY));
-                    }
-                }
-            }
-            return puzzle;
-        }
         public List<Point> makePuzzle(int[][] board, int x, int y) {
             System.out.println("makePuzze : " + x + " " + y);
             int n = board.length;
-            int[][] puzzle = new int[n][n];
             List<Point> list = new LinkedList<>();
             Queue<Point> q = new LinkedList<>();
-            puzzle[x][y] = 1;
             board[x][y] = 0;
             q.add(new Point(x, y));
 
@@ -67,8 +52,7 @@ public class DfsBfs_퍼즐_조각_채우기 {
 
                     if (nX < 0 || nX >= n || nY < 0 || nY >= n) continue;
 
-                    if (puzzle[nX][nY] == 0 && board[nX][nY] == 1) {
-                        puzzle[nX][nY] = 1;
+                    if (board[nX][nY] == 1) {
                         board[nX][nY] = 0;
                         q.add(new Point(nX, nY));
                     }
@@ -77,55 +61,79 @@ public class DfsBfs_퍼즐_조각_채우기 {
             return list;
         }
 
-        public void makePuzzleList(int[][] map, LinkedList<LinkedList<Point>> list) {
+        public void makePuzzleList(int[][] map, List<List<Point>> list) {
             int n = map.length;
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (i == 0 && j == 0) {
-                        if (map[i][j] == 1) {
-                            List<Point> puzzle = makePuzzle(map, i, j);
-                            list.add((LinkedList<Point>) puzzle);
-                        }
-                    }
-                    else if (i == 0) {
-                        if (map[i][j-1] == 0 && map[i][j] == 1) {
-                            List<Point> puzzle = makePuzzle(map, i, j);
-                            list.add((LinkedList<Point>) puzzle);
-                        }
-                    }
-                    else if (j == 0) {
-                        if (map[i - 1][j] == 0 && map[i][j] == 1) {
-                            List<Point> puzzle = makePuzzle(map, i, j);
-                            list.add((LinkedList<Point>) puzzle);
-                        }
-                    }
-                    else {
-                        if (map[i - 1][j] == 0 && map[i][j-1] == 0 && map[i][j] == 1) {
-                            List<Point> puzzle = makePuzzle(map, i, j);
-                            list.add((LinkedList<Point>) puzzle);
-                        }
+                    if (map[i][j] == 1) {
+                        List<Point> puzzle = makePuzzle(map, i, j);
+                        list.add(puzzle);
                     }
                 }
             }
         }
-        public int findCorrectPuzzles(LinkedList<int[][]> g, LinkedList<int[][]> t) {
-            for (int[][] gmap : g) {
-                for (int[][] tmap : t) {
+        public boolean check(List<Point> emptyBlock, List<Point> puzzle) {
+            if (emptyBlock.size() != puzzle.size())
+                return false;
 
+            for (int i = 0; i < 4; i++) {
+                //가장 좌측상단 Point가 맨 앞으로 오도록
+                Collections.sort(puzzle);
+
+                int firstX = puzzle.get(0).x;
+                int firstY = puzzle.get(0).y;
+
+                // (0,0)부터 시작하게 만들기
+                for (int j = 0; j < puzzle.size(); j++) {
+                    puzzle.get(j).x -= firstX;
+                    puzzle.get(j).y -= firstY;
+                }
+
+                boolean correct = true;
+                for (int j = 0; j < emptyBlock.size(); j++) {
+                    Point emptyPoint = emptyBlock.get(j);
+                    Point puzzlePoint = puzzle.get(j);
+                    System.out.println(emptyPoint.x + " " + emptyPoint.y + " " + puzzlePoint.x + " " + puzzlePoint.y);
+
+                    if (emptyPoint.x != puzzlePoint.x || emptyPoint.y != puzzlePoint.y) {
+                        correct = false;
+                        break;
+                    }
+                }
+
+                if (correct) {
+                    return true;
+                }
+                else {
+                    // 90도 회전 (x, y) -> (y, -x)
+                    for (int j = 0; j < puzzle.size(); j++) {
+                        int tmp = puzzle.get(j).x;
+                        puzzle.get(j).x = puzzle.get(j).y;
+                        puzzle.get(j).y = -tmp;
+                    }
                 }
             }
-        }
-        public boolean isCorrect(int[][] gmap, int[][] tmap) {
-            int n = gmap.length;
+            return false;
         }
         public int solution(int[][] game_board, int[][] table) {
-            int answer = -1;
-            LinkedList<int[][]> g_list = new LinkedList<>();
-            LinkedList<int[][]> t_list = new LinkedList<>();
+            int answer = 0;
+            List<List<Point>> g_list = new LinkedList<>();
+            List<List<Point>> t_list = new LinkedList<>();
 
             reverse(game_board);
             makePuzzleList(game_board, g_list);
             makePuzzleList(table, t_list);
+
+            for (int i = 0; i < g_list.size(); i++) {
+                List<Point> emptyBlock = g_list.get(i);
+                for (int j = 0; j < t_list.size(); j++) {
+                    List<Point> puzzle = t_list.get(j);
+                    if (check(emptyBlock, puzzle)) {
+                        answer += puzzle.size();
+                        break;
+                    }
+                }
+            }
 
             System.out.println("g_list.size() = " + g_list.size());
             System.out.println("t_list.size() = " + t_list.size());
