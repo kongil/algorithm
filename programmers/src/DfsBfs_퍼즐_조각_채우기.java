@@ -71,6 +71,13 @@ public class DfsBfs_퍼즐_조각_채우기 {
                     }
                 }
             }
+            for (int i = 0; i < list.size(); i++) {
+                List<Point> pList = list.get(i);
+                for (int j = 0; j < pList.size(); j++) {
+                    Point p = pList.get(j);
+                    System.out.println("p.x + \" \" + p.y = " + p.x + " " + p.y);
+                }
+            }
         }
         public boolean check(List<Point> emptyBlock, List<Point> puzzle) {
             if (emptyBlock.size() != puzzle.size())
@@ -123,6 +130,13 @@ public class DfsBfs_퍼즐_조각_채우기 {
             reverse(game_board);
             makePuzzleList(game_board, g_list);
             makePuzzleList(table, t_list);
+
+            for (int i = 0; i < g_list.size(); i++) {
+                List<Point> emptyBlock = g_list.get(i);
+                for (int j = 0; j < emptyBlock.size(); i++) {
+                    Point p = emptyBlock.get(j);
+                }
+            }
 
             for (int i = 0; i < g_list.size(); i++) {
                 List<Point> emptyBlock = g_list.get(i);
