@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class BinarySearch_입국심사 {
     static class Solution {
-        public long countPerOneMan(long totalTime, int[] times) {
+        public long getSum(int[] times, long totalTime) {
             long cnt = 0;
             for (int time : times) {
                 cnt += totalTime / (long)time;
@@ -15,15 +15,15 @@ public class BinarySearch_입국심사 {
             Arrays.sort(times);
             long left = 0;
             long right = (long)n * times[times.length - 1];
-            while (left < right) {
+            while (left <= right) {
                 long mid = (left + right) / 2;
-                long cnt = countPerOneMan(mid, times);
-                if (cnt >= n) {
-                    right = mid;
-                    answer = mid;
+                long cnt = getSum(times, mid);
+                if (cnt < n) {
+                    left = mid + 1;
                 }
-                else {
-                    left = mid+1;
+                else if (cnt >= n){
+                    answer = mid;
+                    right = mid - 1;
                 }
             }
             return answer;
