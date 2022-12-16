@@ -7,27 +7,21 @@ public class DP_정수_삼각형 {
     static class Solution {
         public int solution(int[][] triangle) {
             int answer = 0;
+
             for (int i = 0; i < triangle.length; i++) {
                 for (int j = 0; j < triangle[i].length; j++) {
-                    System.out.print(triangle[i][j] + " ");
-                }
-                System.out.println();
-            }
-            for (int i = 0; i < triangle.length; i++) {
-                for (int j = 0; j < triangle[i].length; j++) {
-                    System.out.println(i + " " + j + " " + triangle[i].length);
                     if (i == 0) continue;
-                    if (j == 0 || j == triangle[i-1].length) triangle[i][j] = triangle[i - 1][j] + triangle[i][j];
-                    else
-                        triangle[i][j] = Math.max(triangle[i - 1][j - 1], triangle[i - 1][j]) + triangle[i][j];
+                    if (j == 0) triangle[i][j] = triangle[i - 1][j] + triangle[i][j];
+                    else if (j == i) triangle[i][j] = triangle[i - 1][j - 1] + triangle[i][j];
+                    else triangle[i][j] = Math.max(triangle[i - 1][j - 1], triangle[i - 1][j]) + triangle[i][j];
                 }
             }
-            for (int i = 0; i < triangle.length; i++) {
-                for (int j = 0; j < triangle[i].length; j++) {
-                    System.out.print(triangle[i][j] + " ");
-                }
-                System.out.println();
+
+            int n = triangle.length;
+            for (int i = 0; i < n; i++) {
+                answer = Math.max(answer, triangle[n - 1][i]);
             }
+
             return answer;
         }
     }
