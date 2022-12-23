@@ -3,7 +3,6 @@ import java.util.*;
 public class Hash_위장 {
     static class Solution {
         public int solution(String[][] clothes) {
-            int answer = 0;
             Map<String,List<String>> map = new HashMap<>();
             for (String[] cloth : clothes) {
                 String name = cloth[0];
@@ -14,8 +13,12 @@ public class Hash_위장 {
                 List<String> strList = map.get(kind);
                 strList.add(name);
             }
-            map.
-            return answer;
+            Collection<List<String>> values = map.values();
+            int answer = 1;
+            for (List<String> value : values) {
+                answer *= (value.size()+1);
+            }
+            return answer-1;
         }
     }
     public static void main(String[] args) {
