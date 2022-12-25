@@ -10,8 +10,8 @@ public class StackQueue_같은_숫자는_싫어 {
                 dq.add(i);
             }
 
-            int[] answer = new int[dq.size()];
             int cnt = 0;
+            int[] answer = new int[dq.size()];
             while (!dq.isEmpty()) {
                 answer[cnt++] = dq.poll();
             }
