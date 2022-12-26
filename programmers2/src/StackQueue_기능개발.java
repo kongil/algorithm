@@ -29,7 +29,6 @@ public class StackQueue_기능개발 {
 
             while (!q.isEmpty()) {
                 int cnt = afterOneDay(q, speeds, sum);
-                System.out.println("sum : " + sum + "cnt : " + cnt);
                 if (cnt > 0) {
                     answer.add(cnt);
                     sum += cnt;
