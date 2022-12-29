@@ -20,7 +20,6 @@ public class StackQueue_다리를_지나는_트럭 {
             while (!q.isEmpty() || totalWeight != 0) {
                 time++;
                 totalWeight -= onTheBridge.poll();
-                System.out.println(time + " " + q.peek() + " " + totalWeight);
                 if (!q.isEmpty() && totalWeight + q.peek() <= weight) {
                     totalWeight += q.peek();
                     onTheBridge.add(q.poll());
