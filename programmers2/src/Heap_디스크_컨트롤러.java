@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Heap_디스크_컨트롤러 {
@@ -13,36 +15,29 @@ public class Heap_디스크_컨트롤러 {
 
             @Override
             public int compareTo(Node o) {
-                if (this.input_time < o.input_time) {
-                    return -1;
-                }
-                else if (this.input_time == o.input_time) {
-                    return this.spend_time - o.spend_time;
-                }
-                else {
-                    return 1;
-                }
+                return this.spend_time - o.spend_time;
             }
         }
         public int solution(int[][] jobs) {
             PriorityQueue<Node> pq = new PriorityQueue<>();
             int answer = 0;
-            for (int[] job : jobs) {
-                int input_time = job[0];
-                int spspend_time = job[1];
-                pq.add(new Node(input_time, spspend_time));
+            int next_time = 0;
+            for (int i = 0; i <= 1000000; i++) {
+                for (int[] job : jobs) {
+                    int input_time = job[0];
+                    int spend_time = job[1];
+                    if (input_time == i) {
+                        pq.add(new Node(input_time, spend_time));
+                    }
+                }
+                if (next_time <= i && !pq.isEmpty()) {
+                    Node now = pq.poll();
+                    next_time = i + now.spend_time;
+                    answer += i - now.input_time + now.spend_time;
+                }
             }
 
-            int next_time = pq.peek().input_time;
-            int size = pq.size();
-            while (!pq.isEmpty()) {
-                Node node = pq.poll();
-                System.out.println(node.input_time + " : " + node.spend_time);
-                answer += (next_time - node.input_time + node.spend_time);
-                next_time += node.spend_time;
-            }
-
-            return answer / size;
+            return answer / jobs.length;
         }
     }
     public static void main(String[] args) {
