@@ -20,6 +20,7 @@ public class Heap_디스크_컨트롤러 {
         }
         public int solution(int[][] jobs) {
             PriorityQueue<Node> pq = new PriorityQueue<>();
+
             int answer = 0;
             int next_time = 0;
 
