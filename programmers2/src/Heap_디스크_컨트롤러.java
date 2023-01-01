@@ -22,6 +22,7 @@ public class Heap_디스크_컨트롤러 {
             PriorityQueue<Node> pq = new PriorityQueue<>();
             int answer = 0;
             int next_time = 0;
+
             for (int i = 0; i <= 1000000; i++) {
                 for (int[] job : jobs) {
                     int input_time = job[0];
