@@ -10,6 +10,7 @@ public class Sort_K번째수 {
                 int i = command[0];
                 int j = command[1];
                 int k = command[2];
+
                 int[] tmp = new int[j-i+1];
                 for (int l = i; l <= j; l++) {
                     tmp[l-i] = array[l-1];
