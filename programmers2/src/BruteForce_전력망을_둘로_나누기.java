@@ -6,12 +6,11 @@ public class BruteForce_전력망을_둘로_나누기 {
             System.out.println("now = " + now);
             visited[now] = true;
             for (int i = 1; i <= n; i++) {
-                System.out.println(i + " " + visited[i] + " " + graph[now][i]);
+//                System.out.println(i + " " + visited[i] + " " + graph[now][i]);
                 if (!visited[i] && graph[now][i]) {
                     cnt += getCount(i, visited, n);
                 }
             }
-            visited[now] = false;
             return cnt;
         }
         public int solution(int n, int[][] wires) {
@@ -28,8 +27,10 @@ public class BruteForce_전력망을_둘로_나누기 {
                 graph[s][e] = false;
                 graph[e][s] = false;
                 boolean[] visited = new boolean[n+1];
-                System.out.println("start : " + s + "end : " + e);
-                answer = Math.min(answer, Math.abs(n - getCount(s, visited, n)));
+                int sCount = getCount(s, visited, n);
+                answer = Math.min(answer, Math.abs(n - 2*sCount));
+                graph[s][e] = true;
+                graph[e][s] = true;
             }
             return answer;
         }
