@@ -15,9 +15,10 @@ public class Greedy_조이스틱 {
 
             for (int i = 0; i < n; i++) {
                 answer += Math.min(26-(nameArr[i] - tmpArr[i]), nameArr[i] -tmpArr[i]);
+                System.out.println(i + " " + answer + " " + move);
 
                 int lastA = i+1;
-                while (lastA < n && nameArr[lastA] != tmpArr[lastA]) {
+                while (lastA < n && nameArr[lastA] == tmpArr[lastA]) {
                     lastA++;
                 }
 
