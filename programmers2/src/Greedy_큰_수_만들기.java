@@ -1,22 +1,24 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class Greedy_큰_수_만들기 {
     static class Solution {
         public String makeString(Stack<Integer> s) {
             StringBuilder sb = new StringBuilder();
             Stack<Integer> tmp = new Stack<>();
+            boolean firstFlag = true;
 
             while (!s.isEmpty()) {
                 tmp.push(s.pop());
             }
 
             while (!tmp.isEmpty()) {
-                sb.append(String.valueOf(tmp.pop()));
+                if (firstFlag && tmp.peek() == 0) tmp.pop();
+                else if (firstFlag  && tmp.peek() != 0) firstFlag = false;
+                else sb.append(String.valueOf(tmp.pop()));
             }
 
+            if (sb.toString().equals("")) return "0";
             return sb.toString();
         }
         public String solution(String number, int k) {
@@ -35,7 +37,7 @@ public class Greedy_큰_수_만들기 {
                 s.push(intArr[i]);
             }
             while (k > 0 && !s.isEmpty()) {
-                s.peek();
+                s.pop();
                 k--;
             }
 
@@ -46,9 +48,10 @@ public class Greedy_큰_수_만들기 {
     public static void main(String[] args) {
         Solution solution = new Solution();
 //        String number = "1924";
-        String number = "4177252841";
+//        String number = "4177252841";
+        String number = "4321";
 
-        int k = 4;
+        int k = 1;
         String answer = solution.solution(number, k);
         System.out.println("answer = " + answer);
 
