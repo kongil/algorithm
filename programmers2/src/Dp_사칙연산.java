@@ -5,6 +5,7 @@ public class Dp_사칙연산 {
             int n = arr.length;
             int[][] max_dp = new int[n][n];
             int[][] min_dp = new int[n][n];
+
             for (int i = 0; i < n; i++) {
                 if (i%2 == 0) {
                     max_dp[i][i] = Integer.valueOf(arr[i]);
