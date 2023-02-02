@@ -7,19 +7,44 @@ public class Dp_사칙연산 {
             int[][] min_dp = new int[n][n];
 
             for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    max_dp[i][j] = Integer.MIN_VALUE/2;
+                    min_dp[i][j] = Integer.MAX_VALUE/2;
+                }
+            }
+
+            for (int i = 0; i < n; i++) {
                 if (i%2 == 0) {
                     max_dp[i][i] = Integer.valueOf(arr[i]);
                     min_dp[i][i] = Integer.valueOf(arr[i]);
                 }
             }
-            return answer;
+
+            for (int cnt = 3; cnt <= n; cnt+=2) {
+                for (int left = 0; left < n; left+=2) {
+                    int right = left + cnt - 1;
+                    if (right >= n) break;
+                    for (int oper = left+1; oper < right; oper+=2) {
+                        if (arr[oper].equals("+")) {
+                            max_dp[left][right] = Math.max(max_dp[left][right], max_dp[left][oper - 1] + max_dp[oper + 1][right]);
+                            min_dp[left][right] = Math.min(min_dp[left][right], min_dp[left][oper - 1] + min_dp[oper + 1][right]);
+                        }
+                        else if (arr[oper].equals("-")) {
+                            max_dp[left][right] = Math.max(max_dp[left][right], max_dp[left][oper - 1] - min_dp[oper + 1][right]);
+                            min_dp[left][right] = Math.min(min_dp[left][right], min_dp[left][oper - 1] - max_dp[oper + 1][right]);
+                        }
+                    }
+                }
+            }
+
+            return max_dp[0][n-1];
         }
     }
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        int[][] triangle = {{7}, {3, 8}, {8, 1, 0}, {2, 7, 4, 4}, {4, 5, 2, 6, 5}};
-        int answer = solution.solution(triangle);
+        String[] arr = {"1", "-", "3", "+", "5", "-", "8"};
+        int answer = solution.solution(arr);
 
         System.out.println("answer = " + answer);
     }
