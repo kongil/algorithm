@@ -37,18 +37,19 @@ public class DfsBfs_아이템_줍기 {
         public int bfs(int[][] map, int characterX, int characterY, int itemX, int itemY) {
             Queue<Point> q = new LinkedList<>();
 
-            map[characterX][characterY] = 2;
+            map[characterY][characterX] = 2;
             q.add(new Point(characterX, characterY, 0));
             while (!q.isEmpty()) {
                 Point now = q.poll();
-                System.out.println(now.x + " " + now.y + " " + now.cnt);
                 if (now.x == itemX && now.y == itemY) {
                     return now.cnt/2;
                 }
                 for (int i = 0; i < 4; i++) {
                     Point next = new Point(now.x + dx[i], now.y + dy[i], now.cnt+1);
-                    if (map[next.x][next.y] == 1) {
-                        map[next.x][next.y] = 2;
+                    if (next.x < 0 || next.x > 100 || next.y < 0 || next.y > 100)
+                        continue;
+                    if (map[next.y][next.x] == 1) {
+                        map[next.y][next.x] = 2;
                         q.add(next);
                     }
                 }
@@ -58,13 +59,8 @@ public class DfsBfs_아이템_줍기 {
 
         public int solution (int[][] rectangle, int characterX, int characterY, int itemX, int itemY) {
             int[][] map = new int[101][101];
+
             makeOuterLine(rectangle, map);
-            for (int i = 0; i < 20; i++) {
-                for (int j = 0; j < 20; j++) {
-                    System.out.print(map[20-i][j] + " ");
-                }
-                System.out.println();
-            }
 
             return bfs(map, 2*characterX, 2*characterY, 2*itemX, 2*itemY);
         }
