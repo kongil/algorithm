@@ -34,7 +34,6 @@ public class DfsBfs_퍼즐_조각_채우기 {
 
             while (!q.isEmpty()) {
                 Point now = q.poll();
-                puzzle.add(now);
 
                 for (int i = 0; i < 4; i++) {
                     Point next = new Point(now.x + dx[i], now.y + dy[i]);
@@ -42,6 +41,7 @@ public class DfsBfs_퍼즐_조각_채우기 {
                     if (next.x < 0 || next.x >= n || next.y < 0 || next.y >= n || table[next.x][next.y] == 0) continue;
 
                     table[next.x][next.y] = 0;
+                    puzzle.add(next);
                     q.add(new Point(next.x, next.y));
                 }
             }
@@ -81,15 +81,18 @@ public class DfsBfs_퍼즐_조각_채우기 {
             boolean[] empty_visited = new boolean[n];
             boolean[] puzzle_visited = new boolean[m];
             for (int i = 0; i < n; i++) {
+                if (empty_visited[i]) continue;
+                System.out.println(i);
                 List<Point> emptySpace = emptyList.get(i);
                 for (int j = 0; j < m; j++) {
                     List<Point> puzzle = puzzleList.get(j);
                     for (int k = 0; k < 4;k++) {
-                        if (!puzzle_visited[j] && correct(emptySpace, puzzle)) {
+                        if (!empty_visited[i] && !puzzle_visited[j] && correct(emptySpace, puzzle)) {
                             puzzle_visited[j] = true;
                             empty_visited[i] = true;
+                            System.out.println("correct");
                             answer += puzzle.size();
-                        } else if (!puzzle_visited[j]) {
+                        } else if (!empty_visited[i] && !puzzle_visited[j]) {
                             rotate(puzzle);
                         }
                     }
@@ -102,7 +105,7 @@ public class DfsBfs_퍼즐_조각_채우기 {
                 Point p = puzzle.get(i);
                 int tmp = p.x;
                 p.x = p.y;
-                p.y = tmp;
+                p.y = -tmp;
             }
         }
 
@@ -113,18 +116,26 @@ public class DfsBfs_퍼즐_조각_채우기 {
             Collections.sort(puzzle);
 
             int n = emptySpace.size();
-            Point e_start = emptySpace.get(0);
-            Point p_start = puzzle.get(0);
+            Point e_start = new Point(emptySpace.get(0).x, emptySpace.get(0).y);
+            Point p_start = new Point(puzzle.get(0).x, puzzle.get(0).y);
 
             for (int i = 0; i < n; i++) {
                 Point e = emptySpace.get(i);
                 e.x -= e_start.x;
                 e.y -= e_start.y;
+            }
+            for (int i = 0; i < n; i++) {
                 Point p = puzzle.get(i);
                 p.x -= p_start.x;
                 p.y -= p_start.y;
-
-                System.out.println(e.x + " " + e.y + " " + p.x + " " + p.y);
+            }
+            for (int i = 0 ; i < n; i++) {
+                Point e = emptySpace.get(i);
+                Point p = puzzle.get(i);
+            }
+            for (int i = 0 ; i < n; i++) {
+                Point e = emptySpace.get(i);
+                Point p = puzzle.get(i);
                 if (e.x != p.x || e.y != p.y) {
                     return false;
                 }
