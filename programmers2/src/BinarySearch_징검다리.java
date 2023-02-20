@@ -22,7 +22,6 @@ public class BinarySearch_징검다리 {
                 int bef = 0;
                 for (int i = 0; i < rocks.length; i++) {
                     int dis = rocks[i] = bef;
-                    if (dis < m)
                 }
             }
             return answer;
