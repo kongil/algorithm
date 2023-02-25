@@ -1,4 +1,3 @@
-
 class Graph_순위{
     static class Solution {
         public int solution(int n, int[][] results) {
