@@ -27,7 +27,7 @@ public class Dp_N으로_표현_dp {
     public static void main(String[] args) {
         Solution solution = new Solution();
         int N = 5;
-        int number = 12;
+        int number = 26;
         int answer = solution.solution(N, number);
         System.out.println("answer = " + answer);
     }
